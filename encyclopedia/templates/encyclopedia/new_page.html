@@ -1,0 +1,44 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+  New Page
+{% endblock %}
+
+{% block body %}
+
+  <h1>New Page</h1>
+
+  <!-- Collect new page title and content --> 
+  <form action='{% url "new_page" %}' method='post'>
+    {% csrf_token %}
+
+    <!-- If duplicate display error message -->
+    {% if duplicate %}
+      <p class='error'>ERROR: The page "{{ title }}" already exists. 
+         Edit "{{ title }}" or create a new page.</p>
+    {% endif %}
+
+    <!-- Markdown link message -->
+    <div>
+      Markdown supported, vist 
+         <a href='https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax'
+            target='_blank'>GitHub’s Markdown guide</a>
+         for an explanation of Markdown syntax.
+    </div>
+    <br>
+
+    <!-- Forms -->
+    <div>
+      Title:
+    </div>
+    {{ title_form }}
+    <br><br>
+    <div>
+      Content:
+    </div>
+    {{ content_form }}
+    <br><br>
+    <input type='submit' value='Save'>
+  </form>
+
+{% endblock %}

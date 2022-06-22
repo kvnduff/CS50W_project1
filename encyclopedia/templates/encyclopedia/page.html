@@ -1,0 +1,32 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+  {{ name }}
+{% endblock %}
+
+{% block body %}
+
+  <!-- If page exists then display page -->
+  {% if name in pages %}
+    <div class='page_content'>
+      {{ content|safe|escape }}
+    </div>
+
+  <!-- If page doesn't exist then display error message -->
+  {% else %}
+    <h1>Wiki</h1>
+    <p class='error'>ERROR: The page "{{ name }}" does not exist.
+       Access an existing page from the homepage or create a new page.</p>
+
+  {% endif %}
+
+{% endblock %}
+
+{% block nav %}
+
+  <!-- If page exists then display edit link -->
+  {% if name in pages %}
+    <a href='{% url "edit_page" name %}'>Edit Page</a>
+  {% endif %}
+
+{% endblock %}
